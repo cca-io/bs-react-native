@@ -34,16 +34,18 @@ module Permission: {
     | WRITE_EXTERNAL_STORAGE;
 };
 
-type result =
-  | GRANTED
-  | DENIED
-  | NEVER_ASK_AGAIN;
+module Result: {
+  type t =
+    | GRANTED
+    | DENIED
+    | NEVER_ASK_AGAIN;
+};
 
 let check: Permission.t => Js.Promise.t(bool);
 
 let request:
   (~permission: Permission.t, ~rationale: rationale=?, unit) =>
-  Js.Promise.t(result);
+  Js.Promise.t(Result.t);
 
 let requestMultiple:
   (~permissions: list(Permission.t)) => Js.Promise.t(Js.Dict.t('a));

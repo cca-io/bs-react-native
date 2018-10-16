@@ -158,25 +158,27 @@ module Permission = {
     };
 };
 
-type result =
+module Result = {
+  type t = 
   | GRANTED
   | DENIED
   | NEVER_ASK_AGAIN;
+};
 
-[@bs.module "react-native"] [@bs.scope "PermissionsAndroid"]
+[@bs.module "react-native"] [@bs.scope ("PermissionsAndroid", "RESULTS")]
 external granted: string = "GRANTED";
 
-[@bs.module "react-native"] [@bs.scope "PermissionsAndroid"]
+[@bs.module "react-native"] [@bs.scope ("PermissionsAndroid", "RESULTS")]
 external denied: string = "DENIED";
 
-[@bs.module "react-native"] [@bs.scope "PermissionsAndroid"]
+[@bs.module "react-native"] [@bs.scope ("PermissionsAndroid", "RESULTS")]
 external neverAskAgain: string = "NEVER_ASK_AGAIN";
 
 let getResult = r =>
   switch (r) {
-  | r when r === granted => GRANTED
-  | r when r === denied => DENIED
-  | r when r === neverAskAgain => NEVER_ASK_AGAIN
+  | r when r === granted => Result.GRANTED
+  | r when r === denied => Result.DENIED
+  | r when r === neverAskAgain => Result.NEVER_ASK_AGAIN
   | _ => DENIED
   };
 
